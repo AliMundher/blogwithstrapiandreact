@@ -1,6 +1,7 @@
 import React from 'react'
 import useFetch from '../hooks/useFetch';
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 function HomePage() {
     const { data, error, loading } = useFetch('http://localhost:1337/blogs');
@@ -12,23 +13,25 @@ function HomePage() {
             <h1 className="text-center">List of Blogs</h1>
             {
                 data.map(item => <div key={item.id}>
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center ">
                         <div className="col-md-8">
                             <div className="card mb-3 my_card">
                                 <div className="card-body">
-                                    <h4 className="card-title">{item.title}</h4>
-                                    <h4 className="rating">{item.rating}</h4>
-                                    <p className="card-text mt-3">{item.body.slice(0, 300)}...</p>
+                                    <div className="row justify-content-center align-items-center">
+                                        <div className="col-md-8">
+                                            <h4 className="card-title">{item.title}</h4>
+                                            <h4 className="rating">{item.rating}</h4>
+                                            <p >{item.body.slice(0, 300)}...</p>
+                                        </div>
+                                        <div className="col-md-4 d-none d-lg-block">
+                                            <img src={`http://localhost:1337${item.image.formats.small.url}`}
+                                                alt={item.title} className="img-fluid align-middle" />
+                                        </div>
+                                    </div>
+
                                     <Link to={`/details/${item.id}`}
-                                        className="btn btn-outline-primary">Read More</Link>
-                                    <hr />
-                                    {
-                                        item.categories.map(n => <span key={n.id}>
-                                            <Link to={`/category/${n.id}`}
-                                                className="text-capitalize text-decoration-none">{n.name}</Link>
-                                            &nbsp;&nbsp;
-                                        </span>)
-                                    }
+                                        className="btn btn-outline-primary my-3">Read More</Link>
+
                                 </div>
                             </div>
                         </div>

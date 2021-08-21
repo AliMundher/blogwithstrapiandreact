@@ -19,3 +19,8 @@ body {
   height: 45px;
   line-height: 22px
 }
+
+.my-full-width {
+  width: 100%;
+  margin: 15px 0;
+}
